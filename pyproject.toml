@@ -5,6 +5,11 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.14"
 dependencies = [
-    "langchain>=1.2.15",
+    "deepagents>=0.5.6",
+    "langchain[google-genai]>=1.2.15",
+    "langchain-daytona>=0.0.5",
     "langchain-ollama",
+    "langsmith>=0.7.37",
+    "python-dotenv>=1.2.2",
+    "slack-sdk>=3.41.0",
 ]

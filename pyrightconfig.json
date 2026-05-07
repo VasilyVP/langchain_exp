@@ -2,7 +2,7 @@
   "typeCheckingMode": "standard",
   "pythonVersion": "3.14",
   "reportMissingImports": true,
-  "reportMissingTypeStubs": true,
+  "reportMissingTypeStubs": false,
   "reportUnusedVariable": true,
   "reportGeneralTypeIssues": true,
   "reportOptionalMemberAccess": true,

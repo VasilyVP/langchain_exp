@@ -1,4 +1,12 @@
-"""Weather agent example."""
+"""Weather agent example.
+
+Usage:
+    uv run python src/weather_agent.py <city>
+
+Supported cities with realistic temperature ranges:
+    dubai, london, new york, singapore, sydney, tokyo
+    (any other city will use a default range of 12–28°C)
+"""
 
 import argparse
 import random
