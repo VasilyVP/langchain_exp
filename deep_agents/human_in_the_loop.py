@@ -30,6 +30,7 @@ def send_email(to: str, subject: str, body: str) -> str:
 # Checkpointer is REQUIRED for human-in-the-loop
 checkpointer = MemorySaver()
 
+# <|think|>
 system_prompt = """
         You are a helpful assistant that performs actions based on user instructions.
         Some actions require human approval before execution.
@@ -39,7 +40,7 @@ system_prompt = """
 print("Creating deep agent with human-in-the-loop tools...")
 
 agent = create_deep_agent(
-    model="google_genai:gemini-3.1-flash-lite",  # gemma-4-31b-it
+    model="google_genai:gemini-3.1-flash-lite", # gemini-3.1-flash-lite gemma-4-31b-it
     # system_prompt=system_prompt,
     tools=[delete_file, read_file, send_email],
     interrupt_on={
