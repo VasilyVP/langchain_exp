@@ -1,7 +1,6 @@
 from datetime import datetime
 
 from pathlib import Path
-from time import sleep
 from deepagents import create_deep_agent, SubAgent
 from langchain.chat_models import init_chat_model
 from langchain.messages import HumanMessage
@@ -45,7 +44,7 @@ storage_dir.mkdir(parents=True, exist_ok=True)
 
 
 def clean_storage_files() -> None:
-    """Remove only the generated report/request files from storage."""
+    # Remove only the generated report/request files from storage
     for file_name in ("final_report.md", "research_request.md"):
         file_path = storage_dir / file_name
         if file_path.exists() and file_path.is_file():
