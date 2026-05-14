@@ -8,7 +8,7 @@ from langchain.messages import HumanMessage
 from langchain.chat_models import init_chat_model
 from langchain_core.runnables import RunnableConfig
 
-from deep_agents.creator.web_search_tool import generate_cover, generate_social_image
+from deep_agents.creator.tools import generate_cover, generate_social_image
 from deep_agents.creator.helpers import load_subagents
 
 load_dotenv(verbose=True)

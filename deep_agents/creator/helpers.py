@@ -1,7 +1,7 @@
 from pathlib import Path
 import yaml
 
-from deep_agents.creator.web_search_tool import web_search
+from deep_agents.creator.tools import web_search
 
 
 def load_subagents(config_path: Path) -> list:
