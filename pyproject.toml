@@ -7,7 +7,6 @@ requires-python = ">=3.14"
 dependencies = [
     "deepagents>=0.5.6",
     "langchain-daytona>=0.0.5",
-    "langchain-ollama",
     "langsmith>=0.7.37",
     "python-dotenv>=1.2.2",
     "slack-sdk>=3.41.0",
@@ -15,4 +14,8 @@ dependencies = [
     "tavily-python>=0.7.24",
     "httpx>=0.28.1",
     "markdownify>=1.2.2",
+    "langchain-community>=0.4.1",
+    "pypdf>=6.11.0",
+    "qdrant-client[fastembed]>=1.18.0",
+    "langchain-qdrant>=1.1.0",
 ]
