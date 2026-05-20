@@ -19,4 +19,6 @@ dependencies = [
     "qdrant-client[fastembed]>=1.18.0",
     "langchain-qdrant>=1.1.0",
     "bs4>=0.0.2",
+    "langgraph>=1.1.9",
+    "langgraph-cli[inmem]>=0.4.26",
 ]
