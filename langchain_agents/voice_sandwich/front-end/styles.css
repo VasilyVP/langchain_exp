@@ -1,0 +1,124 @@
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap");
+
+:root {
+    --bg-top: #fff6e8;
+    --bg-bottom: #f5c96f;
+    --panel: rgba(255, 251, 243, 0.8);
+    --panel-border: rgba(78, 43, 20, 0.12);
+    --text: #2e1c10;
+    --accent: #bf4d28;
+    --accent-active: #236648;
+    --shadow: rgba(67, 39, 15, 0.18);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+    background:
+        radial-gradient(circle at top left, rgba(255, 255, 255, 0.65), transparent 34%),
+        radial-gradient(circle at bottom right, rgba(255, 139, 61, 0.22), transparent 28%),
+        linear-gradient(160deg, var(--bg-top), var(--bg-bottom));
+    color: var(--text);
+    font-family: "Space Grotesk", sans-serif;
+}
+
+body::before,
+body::after {
+    content: "";
+    position: fixed;
+    inset: auto;
+    width: 24rem;
+    aspect-ratio: 1;
+    border-radius: 999px;
+    filter: blur(6px);
+    pointer-events: none;
+}
+
+body::before {
+    top: -8rem;
+    right: -6rem;
+    background: rgba(255, 255, 255, 0.3);
+}
+
+body::after {
+    bottom: -10rem;
+    left: -5rem;
+    background: rgba(227, 99, 54, 0.14);
+}
+
+main {
+    width: min(92vw, 28rem);
+    padding: 2.5rem 1.5rem;
+    border: 1px solid var(--panel-border);
+    border-radius: 2rem;
+    background: var(--panel);
+    backdrop-filter: blur(20px);
+    box-shadow: 0 2rem 5rem var(--shadow);
+    text-align: center;
+}
+
+h1 {
+    margin: 0 0 0.75rem;
+    font-size: clamp(2.4rem, 7vw, 4rem);
+    line-height: 0.95;
+    letter-spacing: -0.06em;
+}
+
+p {
+    margin: 0 auto 2rem;
+    max-width: 22rem;
+    font-size: 0.98rem;
+    line-height: 1.5;
+    color: rgba(46, 28, 16, 0.76);
+}
+
+button {
+    width: min(16rem, 72vw);
+    aspect-ratio: 1;
+    border: 0;
+    border-radius: 999px;
+    background: linear-gradient(180deg, #d85e35, var(--accent));
+    color: #fff9f1;
+    font: inherit;
+    font-size: clamp(1.5rem, 5vw, 2rem);
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    cursor: pointer;
+    box-shadow: 0 1.8rem 3.4rem rgba(191, 77, 40, 0.33);
+    transition: transform 160ms ease, box-shadow 160ms ease, background 160ms ease;
+}
+
+button:hover {
+    transform: translateY(-2px) scale(1.01);
+    box-shadow: 0 2.2rem 3.8rem rgba(191, 77, 40, 0.38);
+}
+
+button:active {
+    transform: translateY(1px) scale(0.995);
+}
+
+button[data-active="true"] {
+    background: linear-gradient(180deg, #2d8d64, var(--accent-active));
+    box-shadow: 0 1.8rem 3.4rem rgba(35, 102, 72, 0.28);
+}
+
+button:disabled {
+    cursor: wait;
+    opacity: 0.75;
+    transform: none;
+    box-shadow: 0 1rem 2rem rgba(67, 39, 15, 0.18);
+}
+
+#status {
+    margin-top: 1.5rem;
+    min-height: 1.5rem;
+    font-size: 0.9rem;
+    letter-spacing: 0.01em;
+}
