@@ -1,5 +1,4 @@
 import asyncio
-import asyncio
 import base64
 import contextlib
 import logging
@@ -12,7 +11,30 @@ from langchain_agents.voice_sandwich.back_end.elevenlabs import el_client
 
 logger = logging.getLogger(__name__)
 
-GARBLED_TRANSCRIPT_MARKER = "����������"
+MIN_MEANINGFUL_CHARS = 2
+
+
+def _is_likely_garbled_text(text: str) -> bool:
+    """Detect common mojibake/replacement-character transcripts.
+
+    We do not rely on one fixed marker because providers can emit different
+    garbled patterns depending on transport/decoding behavior.
+    """
+    stripped = text.strip()
+    if not stripped:
+        return True
+
+    # Unicode replacement character indicates failed decoding.
+    replacement_count = stripped.count("\ufffd")
+    if replacement_count >= MIN_MEANINGFUL_CHARS:
+        return True
+
+    # If mostly punctuation/symbols and no letters/digits, it's usually noise.
+    alnum_count = sum(ch.isalnum() for ch in stripped)
+    if alnum_count == 0 and len(stripped) >= MIN_MEANINGFUL_CHARS:
+        return True
+
+    return False
 
 
 def _extract_event_text(payload: object) -> str:
@@ -48,8 +70,8 @@ async def stt_stream(
 
     def on_transcript(payload: object) -> None:
         text = _extract_event_text(payload)
-        if GARBLED_TRANSCRIPT_MARKER in text:
-            logger.debug("STT ignored garbled transcript marker")
+        if _is_likely_garbled_text(text):
+            logger.debug("STT ignored likely garbled transcript: %r", text)
             return
         if text:
             events.put_nowait(text)

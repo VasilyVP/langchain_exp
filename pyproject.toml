@@ -24,4 +24,6 @@ dependencies = [
     "elevenlabs>=2.49.0",
     "fastapi>=0.136.1",
     "granian>=2.7.4",
+    "langchain-openai>=1.2.2",
+    "langgraph-checkpoint>=4.1.0",
 ]

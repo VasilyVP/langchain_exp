@@ -1,6 +1,7 @@
 import logging
 from typing import AsyncIterator
 
+from langchain.chat_models import init_chat_model
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_core.utils.uuid import uuid7
 from langchain.agents import create_agent
@@ -10,7 +11,8 @@ from langgraph.checkpoint.memory import InMemorySaver
 
 logger = logging.getLogger(__name__)
 
-model = ChatGoogleGenerativeAI(model="gemma-4-31b-it")
+#model = ChatGoogleGenerativeAI(model="gemma-4-31b-it")
+model = init_chat_model(model="openai:gpt-5.4-mini", temperature=0.0)
 
 
 # Define agent tools
@@ -34,6 +36,14 @@ agent = create_agent(
     Your responses will be read by a text-to-speech engine.""",
     checkpointer=InMemorySaver(),
 )
+
+
+def _append_fragment(buffer: str, fragment: str) -> str:
+    if not buffer:
+        return fragment
+    if buffer.endswith((" ", "\n", "\t")) or fragment.startswith((" ", "\n", "\t", ".", ",", "!", "?", ":", ";", "'", '"', ")", "]")):
+        return f"{buffer}{fragment}"
+    return f"{buffer} {fragment}"
 
 
 async def agent_stream(
@@ -61,12 +71,16 @@ async def agent_stream(
         )
 
         try:
-            # Yield agent response chunks as they arrive
+            # Aggregate model chunks into a single TTS-ready response.
+            full_response = ""
             async for message, _ in stream:
                 if isinstance(message, AIMessageChunk):
-                    chunk_text = message.text.strip()
-                    if chunk_text:
-                        yield chunk_text
+                    chunk_text = message.text
+                    if chunk_text and chunk_text.strip():
+                        full_response = _append_fragment(full_response, chunk_text)
+
+            if full_response.strip():
+                yield full_response.strip()
         except Exception:
             logger.exception("Agent stream failed for transcript: %r", cleaned_transcript)
             yield "Sorry, I had trouble processing that. Please try again."

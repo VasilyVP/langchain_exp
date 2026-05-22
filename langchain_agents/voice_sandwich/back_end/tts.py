@@ -1,7 +1,10 @@
 import asyncio
+import logging
 from typing import Any, AsyncIterator, cast
 
 from langchain_agents.voice_sandwich.back_end.elevenlabs import el_client
+
+logger = logging.getLogger(__name__)
 
 
 async def tts_stream(
@@ -16,7 +19,7 @@ async def tts_stream(
 
     def synthesize_once(text: str) -> list[bytes]:
         audio_stream = text_to_speech_client.convert(
-            voice_id="JBFqnCBsd6RMkjVDRZzb",  # "George" - browse voices at https://beta.elevenlabs.io/voices
+            voice_id="pNInz6obpgDQGcFmaJgB",
             text=text,
             model_id="eleven_flash_v2_5",
             output_format="pcm_16000",
@@ -29,6 +32,11 @@ async def tts_stream(
         if not cleaned_text:
             continue
 
-        audio_chunks = await asyncio.to_thread(synthesize_once, cleaned_text)
+        try:
+            audio_chunks = await asyncio.to_thread(synthesize_once, cleaned_text)
+        except Exception:
+            logger.exception("TTS synthesis failed for text: %r", cleaned_text)
+            continue
+
         for chunk in audio_chunks:
             yield chunk
