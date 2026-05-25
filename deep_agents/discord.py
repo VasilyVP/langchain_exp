@@ -7,6 +7,7 @@ import requests
 def make_discord_send_message(backend: BackendProtocol):
     @tool(parse_docstring=True)
     def discord_send_message(text: str, file_path: str | None = None) -> str | None:
+        """Send a message to a Discord channel via webhook."""
         message = None
         fp = None
 
