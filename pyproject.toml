@@ -19,11 +19,12 @@ dependencies = [
     "qdrant-client[fastembed]>=1.18.0",
     "langchain-qdrant>=1.1.0",
     "bs4>=0.0.2",
-    "langgraph>=1.1.9",
+    "langgraph>=1.2.5",
     "langgraph-cli[inmem]>=0.4.26",
     "elevenlabs>=2.49.0",
     "fastapi>=0.136.1",
     "granian>=2.7.4",
     "langchain-openai>=1.2.2",
     "langgraph-checkpoint>=4.1.0",
+    "ipython>=9.14.1",
 ]

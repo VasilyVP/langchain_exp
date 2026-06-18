@@ -1,3 +1,4 @@
+// This is a simple Discord bot that creates support threads and uses a language model to respond to user queries.
 import { config as dotenv } from 'dotenv';
 import { REST, Routes, Client, GatewayIntentBits, ChannelType, TextChannel } from 'discord.js';
 import { createAgent, SystemMessage, HumanMessage } from "langchain";
